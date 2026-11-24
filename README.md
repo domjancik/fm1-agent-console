@@ -4,6 +4,13 @@ Turns an M-VAVE FM-1 mini keyboard into a hardware console for coding agents run
 [Traycer](https://github.com/traycerai/traycer): see which Claude Code and Codex sessions are working, waiting or
 done, open them on the Mac, approve or deny, send canned or spoken prompts, and hear the latest answer read aloud.
 
+<p align="center">
+  <img src="docs/images/console-list.png" width="240" alt="Session list: one row per agent session with its state and age, the selected session's latest answer in a speech bubble">
+  <img src="docs/images/console-buddy.png" width="240" alt="Buddy view: the selected session's title in large type, its latest answer, and a chip for each session">
+  <img src="docs/images/console-details.png" width="240" alt="Details view: the latest answer with bold, inline code and a table">
+</p>
+<p align="center"><sub>The console screen (480 x 480), rendered by the firmware's host build from test fixtures.</sub></p>
+
 It has two halves:
 
 - **Firmware** (`firmware/`): an FM-1 app, FM1 CONSOLE, built on [Dinghy](https://github.com/zvenson/dinghy). It

@@ -1,0 +1,14 @@
+[
+  {
+    "from": ["tracer", "traycer", "tray cer"],
+    "to": "Traycer",
+    "avoidAny": ["opentelemetry", "otel", "telemetry", "span", "spans", "jaeger"]
+  },
+  { "from": ["cloud code", "claude code", "clawed code"], "to": "Claude Code" },
+  {
+    "from": ["codecs", "codex"],
+    "to": "Codex",
+    "requireAny": ["agent", "session", "claude", "traycer", "tracer", "prompt", "task", "ask", "openai"],
+    "avoidAny": ["audio", "video", "ffmpeg", "mp3", "h264"]
+  }
+]

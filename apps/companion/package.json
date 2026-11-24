@@ -1,0 +1,30 @@
+{
+  "name": "@fm1/companion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "FM-1 Agent Console companion: device link host, voice pipeline, agent adapter wiring and the fm1-console CLI.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "fm1-console": "src/cli.ts"
+  },
+  "scripts": {
+    "start": "bun src/cli.ts start",
+    "build:native": "bash scripts/build-native.sh",
+    "test": "bun test",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.traycer.json --noEmit"
+  },
+  "dependencies": {
+    "@fm1/agent-core": "workspace:*",
+    "@fm1/agent-adapter-traycer": "workspace:*",
+    "@fm1/companion-ui": "workspace:*",
+    "@fm1/device-protocol": "workspace:*",
+    "@fm1/device-simulator": "workspace:*",
+    "@fm1/speech": "workspace:*"
+  }
+}

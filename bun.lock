@@ -1,0 +1,170 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "fm1-agent-console",
+      "devDependencies": {
+        "@types/bun": "^1.1.13",
+        "typescript": "^5.6.3",
+      },
+    },
+    "apps/companion": {
+      "name": "@fm1/companion",
+      "version": "0.1.0",
+      "bin": {
+        "fm1-console": "src/cli.ts",
+      },
+      "dependencies": {
+        "@fm1/agent-adapter-traycer": "workspace:*",
+        "@fm1/agent-core": "workspace:*",
+        "@fm1/companion-ui": "workspace:*",
+        "@fm1/device-protocol": "workspace:*",
+        "@fm1/device-simulator": "workspace:*",
+        "@fm1/speech": "workspace:*",
+      },
+    },
+    "apps/companion-ui": {
+      "name": "@fm1/companion-ui",
+      "version": "0.1.0",
+    },
+    "packages/agent-adapter-traycer": {
+      "name": "@fm1/agent-adapter-traycer",
+      "version": "0.1.0",
+      "dependencies": {
+        "@fm1/agent-core": "workspace:*",
+      },
+    },
+    "packages/agent-core": {
+      "name": "@fm1/agent-core",
+      "version": "0.1.0",
+    },
+    "packages/device-protocol": {
+      "name": "@fm1/device-protocol",
+      "version": "0.1.0",
+      "dependencies": {
+        "@julusian/midi": "3.8.1",
+      },
+    },
+    "packages/device-simulator": {
+      "name": "@fm1/device-simulator",
+      "version": "0.1.0",
+      "bin": {
+        "fm1-sim": "src/cli.ts",
+      },
+      "dependencies": {
+        "@fm1/device-protocol": "workspace:*",
+      },
+    },
+    "packages/speech": {
+      "name": "@fm1/speech",
+      "version": "0.1.0",
+      "dependencies": {
+        "sherpa-onnx-node": "2.0.1",
+      },
+    },
+    "tools/firmware-inspect": {
+      "name": "@fm1/firmware-inspect",
+      "version": "0.1.0",
+      "bin": {
+        "firmware-inspect": "src/cli.ts",
+      },
+    },
+    "tools/smoke-traycer": {
+      "name": "@fm1/smoke-traycer",
+      "version": "0.1.0",
+      "bin": {
+        "fm1-smoke-traycer": "src/cli.ts",
+        "fm1-e2e": "src/e2e.ts",
+      },
+      "dependencies": {
+        "@fm1/agent-adapter-traycer": "workspace:*",
+        "@fm1/agent-core": "workspace:*",
+        "@fm1/companion": "workspace:*",
+        "@fm1/companion-ui": "workspace:*",
+        "@fm1/device-protocol": "workspace:*",
+        "@fm1/device-simulator": "workspace:*",
+      },
+    },
+    "tools/traycer-probe": {
+      "name": "@fm1/traycer-probe",
+      "version": "0.1.0",
+      "bin": {
+        "traycer-probe": "src/cli.ts",
+      },
+      "dependencies": {
+        "@fm1/agent-adapter-traycer": "workspace:*",
+      },
+    },
+    "tools/traycer-relay": {
+      "name": "@fm1/traycer-relay",
+      "version": "0.1.0",
+      "bin": {
+        "traycer-relay": "src/cli.ts",
+      },
+      "dependencies": {
+        "@fm1/agent-adapter-traycer": "workspace:*",
+        "@fm1/agent-core": "workspace:*",
+      },
+    },
+  },
+  "packages": {
+    "@fm1/agent-adapter-traycer": ["@fm1/agent-adapter-traycer@workspace:packages/agent-adapter-traycer"],
+
+    "@fm1/agent-core": ["@fm1/agent-core@workspace:packages/agent-core"],
+
+    "@fm1/companion": ["@fm1/companion@workspace:apps/companion"],
+
+    "@fm1/companion-ui": ["@fm1/companion-ui@workspace:apps/companion-ui"],
+
+    "@fm1/device-protocol": ["@fm1/device-protocol@workspace:packages/device-protocol"],
+
+    "@fm1/device-simulator": ["@fm1/device-simulator@workspace:packages/device-simulator"],
+
+    "@fm1/firmware-inspect": ["@fm1/firmware-inspect@workspace:tools/firmware-inspect"],
+
+    "@fm1/smoke-traycer": ["@fm1/smoke-traycer@workspace:tools/smoke-traycer"],
+
+    "@fm1/speech": ["@fm1/speech@workspace:packages/speech"],
+
+    "@fm1/traycer-probe": ["@fm1/traycer-probe@workspace:tools/traycer-probe"],
+
+    "@fm1/traycer-relay": ["@fm1/traycer-relay@workspace:tools/traycer-relay"],
+
+    "@julusian/midi": ["@julusian/midi@3.8.1", "", { "dependencies": { "node-addon-api": "^6.1.0", "pkg-prebuilds": "^1.1.0", "tslib": "^2.8.1" } }, "sha512-T+Ecn2pWTFu0G81PUa64Tk7yqzS6KlW61BKIaWVCBeXKXtXQ8ARgn6NcqmH6kABOM3FA8DV7XaPcw7VDBtgxKQ=="],
+
+    "@types/bun": ["@types/bun@1.4.4", "", { "dependencies": { "bun-types": "1.4.4" } }, "sha512-9wkRDXUXK124pEnAutE6n/l18j+i9GC5IAHK8TmX/2nlySETmky0OU6yL5U8pW1AoKh++AN9auDCr647BfurjQ=="],
+
+    "@types/node": ["@types/node@26.6.6", "", { "dependencies": { "undici-types": "~8.9.0" } }, "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog=="],
+
+    "bun-types": ["bun-types@1.4.4", "", { "dependencies": { "@types/node": "*", "undici-types": "*" } }, "sha512-yjrJh5oGX7mMPKGd19YXyIjmEuj4G4zNC30bs7PM9Az7NQ3ndF3j6hbeRdvJTRQEhJ/FYQwW0a2moweEi2hMxQ=="],
+
+    "node-addon-api": ["node-addon-api@6.1.0", "", {}, "sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA=="],
+
+    "pkg-prebuilds": ["pkg-prebuilds@1.1.0", "", { "bin": { "pkg-prebuilds-copy": "bin/copy.mjs", "pkg-prebuilds-verify": "bin/verify.mjs" } }, "sha512-jyai+KTQ2OwbN6iRYw88XbYOMgtpoSYJpjYebx7d9ihqz3txNi3ucsBt3va0iVWe6svSlaqpijMHFF/eJCMZzg=="],
+
+    "sherpa-onnx-darwin-arm64": ["sherpa-onnx-darwin-arm64@2.0.1", "", { "os": "darwin", "cpu": "arm64" }, "sha512-agXmbbwiVPUSMViMhWhYAt59iG21ui7x6HxQFU35XzHOfQe9x6Pg9V160Pzak/66x0ePMjixsLUtMaaUrLfCwQ=="],
+
+    "sherpa-onnx-darwin-x64": ["sherpa-onnx-darwin-x64@2.0.1", "", { "os": "darwin", "cpu": "x64" }, "sha512-SBnHa3LDOSI/5/rpBHGxKQDFq+yIdxowYY0InLzfojTUx+yGgqu7cYBrRxjzvHOiOKi0O4rmlFVZboyhIqpDgA=="],
+
+    "sherpa-onnx-linux-arm64": ["sherpa-onnx-linux-arm64@2.0.1", "", { "os": "linux", "cpu": "arm64" }, "sha512-5CJvLjFYIg23oELCsT7l07fMLT3PdquZ3tqh7KZK3Pzi+c2YiPKRe1DDUxoNdtCaw3ZiS4aQSQPBblB9JStuDA=="],
+
+    "sherpa-onnx-linux-x64": ["sherpa-onnx-linux-x64@2.0.1", "", { "os": "linux", "cpu": "x64" }, "sha512-w5mRRrIvPvcNWac7rQ8AN/t/cwElPGoRpH+ceCRBV7XfjCIQ9Rcr3Ig/kXcJLNOxgK4bGmef+Y47lIWiesDODw=="],
+
+    "sherpa-onnx-node": ["sherpa-onnx-node@2.0.1", "", { "optionalDependencies": { "sherpa-onnx-darwin-arm64": "2.0.1", "sherpa-onnx-darwin-x64": "2.0.1", "sherpa-onnx-linux-arm64": "2.0.1", "sherpa-onnx-linux-x64": "2.0.1", "sherpa-onnx-win-arm64": "2.0.1", "sherpa-onnx-win-ia32": "2.0.1", "sherpa-onnx-win-x64": "2.0.1" } }, "sha512-1PSACfQgPXAD7ExwCv1QW09EXTjcNlpZKBqDY+jxSdIzlyOSq0M13SILBoUQUfeJqiTTXnqp6Ha9jjMUQ6efXg=="],
+
+    "sherpa-onnx-win-arm64": ["sherpa-onnx-win-arm64@2.0.1", "", { "os": "win32", "cpu": "arm64" }, "sha512-Mb9iqy2Zp7GC5a99dk5E8EQJsEBnapf+IcwHLVCgtIf5mxYHO9Q8YptnAoOHZOD0Zi+R+MblFyG9qv0Q6tin4Q=="],
+
+    "sherpa-onnx-win-ia32": ["sherpa-onnx-win-ia32@2.0.1", "", { "os": "win32", "cpu": "ia32" }, "sha512-q7qFCA3FK+tYc8pexC9Kzu9WGGoZ9X//UkpxVp6iT4E4W5tPhOEirPyvawS6zgfEW6K/GOISMcYe996Yc7d6iw=="],
+
+    "sherpa-onnx-win-x64": ["sherpa-onnx-win-x64@2.0.1", "", { "os": "win32", "cpu": "x64" }, "sha512-7vwdAw9PGEb0JLSpK7UFxAdp1vabBHK9Nhw2jFRBWSFgtslUPHIB0T6syJfRgiUGyCeNW9fJvcFAk2F2u7hBEw=="],
+
+    "tslib": ["tslib@2.9.1", "", {}, "sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA=="],
+
+    "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+
+    "undici-types": ["undici-types@8.12.4", "", {}, "sha512-GNCQH3MbVGB8OAVAoTiLH8pu4wx5Ni3DWKpnBzGj3WDsi8EwmK0aOVBooNEt+g5YL1eHPxcS9XUTouwFU6j1kQ=="],
+
+    "@types/node/undici-types": ["undici-types@8.9.0", "", {}, "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg=="],
+  }
+}

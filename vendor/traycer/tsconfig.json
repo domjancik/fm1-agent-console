@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "@traycer-clients/shared/*": ["./clients-shared/*"],
+      "@traycer/protocol/utils/*": ["./protocol/utils/*"],
+      "@traycer/protocol/*": ["./protocol/src/*"]
+    }
+  },
+  "include": ["clients-shared", "protocol/src", "protocol/utils"]
+}

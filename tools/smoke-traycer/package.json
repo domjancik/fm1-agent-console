@@ -1,0 +1,23 @@
+{
+  "name": "@fm1/smoke-traycer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Live Traycer smoke runner (spec section 6, T0-T9) and the simulated end-to-end acceptance run. State-changing tests need --live and the disposable allowlist.",
+  "bin": { "fm1-smoke-traycer": "src/cli.ts", "fm1-e2e": "src/e2e.ts" },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "read-only": "bun src/cli.ts --read-only",
+    "live": "bun src/cli.ts --live",
+    "e2e": "bun src/e2e.ts --live"
+  },
+  "dependencies": {
+    "@fm1/agent-core": "workspace:*",
+    "@fm1/agent-adapter-traycer": "workspace:*",
+    "@fm1/companion": "workspace:*",
+    "@fm1/companion-ui": "workspace:*",
+    "@fm1/device-protocol": "workspace:*",
+    "@fm1/device-simulator": "workspace:*"
+  }
+}

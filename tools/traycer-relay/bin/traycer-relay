@@ -1,0 +1,3 @@
+#!/bin/sh
+# Runs the traycer-relay CLI from any directory.
+exec bun "$(dirname "$0")/../src/cli.ts" "$@"

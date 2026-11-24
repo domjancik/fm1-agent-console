@@ -1,0 +1,21 @@
+{
+  "name": "@fm1/traycer-probe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Thin CLI over @fm1/agent-adapter-traycer for discovery and disposable live smoke tests.",
+  "bin": { "traycer-probe": "src/cli.ts" },
+  "scripts": {
+    "discover": "bun src/cli.ts discover",
+    "list-tasks": "bun src/cli.ts list-tasks",
+    "list-agents": "bun src/cli.ts list-agents",
+    "activity": "bun src/cli.ts activity",
+    "send": "bun src/cli.ts send",
+    "stop": "bun src/cli.ts stop",
+    "transcript": "bun src/cli.ts transcript",
+    "create-chat": "bun src/cli.ts create-chat"
+  },
+  "dependencies": {
+    "@fm1/agent-adapter-traycer": "workspace:*"
+  }
+}

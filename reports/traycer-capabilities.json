@@ -1,0 +1,153 @@
+{
+  "generatedAt": "2026-11-18T11:12:00Z",
+  "traycerCliVersion": "1.5.4",
+  "traycerHostVersion": "1.5.4",
+  "protocol": "vendored @traycer/protocol at host-v1.5.4 (b7a5f5ca)",
+  "adapter": "@fm1/agent-adapter-traycer 0.1.0",
+  "clientIdentity": {
+    "kind": "fm1-console",
+    "compatibilityEpoch": 2,
+    "hostAccepted": true,
+    "fallbackKindUsed": false
+  },
+  "operations": {
+    "discoverEndpoint": {
+      "pathway": "read ~/.traycer/host/pid.json; validate loopback ws /rpc URL and that the pid is alive; stream URL = /stream",
+      "status": "verified-live",
+      "evidence": "probe discover: pid 69261, ws://127.0.0.1:52330/rpc, version 1.5.4"
+    },
+    "authenticate": {
+      "pathway": "bearer = token from ~/.traycer/cli/credentials, in memory only; on UNAUTHORIZED run `traycer whoami --json` and re-read the file",
+      "status": "verified-live",
+      "evidence": "every live call succeeded with the stored token; the whoami refresh path is unit-tested against a fake host (no live UNAUTHORIZED happened)"
+    },
+    "versionNegotiation": {
+      "pathway": "open/openAck per-method manifest built from the vendored registry (vendored WsRpcClient / WsStreamClient)",
+      "status": "verified-live",
+      "evidence": "openAck: 113 floor + 257 optional host methods; client offers 476; chat.subscribe negotiated 1.41"
+    },
+    "hostCapabilities": {
+      "pathway": "openAck.capabilities + host.getRuntimeCapabilities",
+      "status": "verified-live",
+      "evidence": "capabilities [\"unary.idempotencyKey\"]; runtime chatMessageList=available (license key value withheld)"
+    },
+    "listTasks": {
+      "pathway": "epic.listTasks {limit, filters:null, sort:\"recent\", extensionPhaseVersion:\"1.0.0\", extensionEpicVersion:\"2.0.0\"}, paginated by cursor",
+      "status": "verified-live",
+      "evidence": "154 tasks; includes ab47a5cf and the disposable 243c50b9"
+    },
+    "listAgents": {
+      "pathway": "epic.listChatRecords + epic.listTuiAgents (no sender agent needed) + epic.getChatRunSettingsBatch, normalized to {agentId, surface, harnessId, model, ...}",
+      "status": "verified-live",
+      "evidence": "ab47a5cf: 1 tui/claude row, matches `traycer agent list --json --all`; 243c50b9: gui/claude/haiku + gui/codex/gpt-5.6-luna"
+    },
+    "activityAcrossEpics": {
+      "pathway": "agent.activity.subscribe via vendored AgentActivityStreamClient",
+      "status": "verified-live",
+      "evidence": "10 s watch: state frames (servedBy local and cloud) listing working/turn agent ids for 3 epics; a running TUI agent in ab47a5cf never appeared (TUI activity caveat)"
+    },
+    "chatEvents": {
+      "pathway": "chat.subscribe via vendored ChatStreamClient (snapshot, actionAck, messageAccepted, turnStateChanged, blockDelta, ...)",
+      "status": "verified-live",
+      "evidence": "reports/evidence/traycer/t*-frames.ndjson"
+    },
+    "sendPromptGuiChat": {
+      "pathway": "chat.subscribe client frame kind:send, sender {type:user}, settings copied from epic.getChatRunSettings, accountContext PERSONAL, sentFromHostId = local hostId; correlate actionAck by clientActionId, messageAccepted by messageId, turnStateChanged by activeTurn.userMessageId",
+      "status": "verified-live",
+      "evidence": "T2 claude haiku and T3 codex gpt-5.6-luna: one ack, one user turn, reply equals the marker, model unchanged"
+    },
+    "sendPromptTuiAgent": {
+      "pathway": "agent.sendMessage@1.1 {senderAgentId, epicId, receiverAgentId, prompt, responseId:null, expectReply:false, workspace:null} as a sender agent in the receiver's own task (adapter option a2aSender), idempotencyKey fm1-a2a-<requestId>; delivery and reply observed through agent.getTranscript. Never terminal.subscribe write.",
+      "status": "verified-live",
+      "scope": "Claude Code TUI agents whose Claude session runs the Traycer inbox monitor. Codex TUI: refused (TARGET_TUI_UNSUPPORTED). A Claude TUI blocked at the folder-trust dialog accepts the RPC but never receives the message.",
+      "evidence": "reports/evidence/tui-a2a/ (2026-11-18): RPC 15-51 ms, prompt in receiver transcript ~1.0 s, reply ~3.0-4.1 s; tools/smoke-traycer TUI-A2A PASS (reports/evidence/tui-a2a/smoke-2026-11-18T11-10-24Z/records.json)"
+    },
+    "interAgentMessage": {
+      "pathway": "agent.sendMessage / `traycer agent send` (creates no user turn)",
+      "status": "code-only",
+      "evidence": "protocol/src/host/agent/shared.ts docstring; not used for human prompts"
+    },
+    "stop": {
+      "pathway": "agent.stop {epicId, agentId, cascade:false}, with no agent context",
+      "status": "verified-live",
+      "evidence": "T6: {stoppedAgentIds:[51b0ff2e...]}, turn running -> stopping -> stopped"
+    },
+    "stopViaChatFrame": {
+      "pathway": "chat.subscribe client frame kind:stop {turnId|null}",
+      "status": "code-only",
+      "evidence": "subscribe.ts schema; agent.stop used instead"
+    },
+    "transcript": {
+      "pathway": "agent.getTranscript {epicId, agentId}, no sender needed",
+      "status": "verified-live",
+      "evidence": "used to verify T2/T3 turn counts and markers"
+    },
+    "contextUsage": {
+      "pathway": "chat.subscribe blockDelta events usage.updated / turn.completed .usage {inputTokens, outputTokens, contextTokens, contextWindow, costUsd?}",
+      "status": "verified-live",
+      "evidence": "T3 usage {contextTokens:33030, contextWindow:258400}"
+    },
+    "createTask": {
+      "pathway": "`traycer task create --json --harness --model --idempotency-key` (run with TRAYCER_AGENT_ID/EPIC_ID unset)",
+      "status": "verified-live",
+      "evidence": "created disposable task 243c50b9; first agent was a GUI chat (surface gui) that replied OK"
+    },
+    "createGuiChatInTask": {
+      "pathway": "epic.createChat {epicId, parentId:null, hostId, title, workspaceMode:\"inherit\", chatId (client-minted, idempotency key), settings, worktreeIntent:null}",
+      "status": "verified-live",
+      "evidence": "T3 chat 067bd5f8 created with codex settings"
+    },
+    "createTuiAgentInTask": {
+      "pathway": "agent.create@3.1 {surface:'tui', harnessId:'claude', model:'haiku', routing:null (routing on a TUI is refused), senderAgentId = a GUI chat in the task}",
+      "status": "verified-live",
+      "evidence": "reports/evidence/tui-a2a/*-create-tui-*.json; probe only, the adapter never creates agents"
+    },
+    "approvalsDiscover": {
+      "pathway": "host.notifications.* approval.requested + chat.subscribe approvalRequested",
+      "status": "verified-live",
+      "evidence": "T7 pass (deny, approve, stale) on disposable chat; reports/traycer-smoke.md"
+    },
+    "approvalsRespond": {
+      "pathway": "chat.subscribe approvalDecision {approvalId, decision{approved, reason?}}",
+      "status": "verified-live",
+      "evidence": "T7 pass (deny, approve, stale) on disposable chat; reports/traycer-smoke.md"
+    },
+    "approvalsTui": {
+      "pathway": "none",
+      "status": "unsupported",
+      "evidence": "no schema (discovery doc 2.6)"
+    },
+    "focusDesktopSession": {
+      "pathway": "out of scope for this run; see docs/discovery/traycer-focus.md",
+      "status": "unsupported",
+      "evidence": "discovery doc 2.9: traycer:// only handles auth/callback in public desktop source; not re-tested here"
+    },
+    "a2aSenderAcceptance": {
+      "pathway": "agent.sendMessage sender rules (host 1.5.4, observed)",
+      "status": "verified-live",
+      "accepted": [
+        "GUI chat in the receiver's task",
+        "dedicated GUI agent 'FM1 Console' in the receiver's task",
+        "TUI agent in the task (running, also blocked at trust dialog)",
+        "stopped TUI agent",
+        "archived GUI chat",
+        "the receiver itself"
+      ],
+      "refused": {
+        "unknown agent id": "FORBIDDEN (message = the sender id)",
+        "sender from another task (epicId = receiver's task)": "FORBIDDEN"
+      },
+      "evidence": "reports/evidence/tui-a2a/*-send-sender-*.json"
+    },
+    "a2aReplyCapture": {
+      "pathway": "expectReply=true returns a broker responseId (reused per sender->receiver pair: 40b9ef8f\u2026 twice); the receiver must call traycer_send_message to reply",
+      "status": "unsupported",
+      "evidence": "haiku receiver answered in its own transcript but sent no a2a reply; on an explicit request its Claude auto-mode classifier denied traycer_send_message ('Unsanctioned Communication'). agent.inbox.subscribe for a GUI sender: UNAUTHORIZED AGENT_NOT_FOUND; for a TUI agent the fm1-console client may open it (would race that agent's own monitor). Adapter reads the reply from the receiver transcript instead (details.reply)."
+    },
+    "a2aGuiReceiver": {
+      "pathway": "agent.sendMessage to a GUI chat",
+      "status": "verified-live",
+      "evidence": "lands as a user_message 'Agent message from FM1 Console ...' (RPC 521 ms); the adapter keeps GUI chats on chat.subscribe send (user sender, exact turn correlation)"
+    }
+  }
+}

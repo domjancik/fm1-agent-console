@@ -1,0 +1,99 @@
+{
+ "name": "disconnected",
+ "backendId": "traycer",
+ "hostId": "host-offline",
+ "connected": false,
+ "projects": [
+  {
+   "projectId": "proj-x",
+   "name": "offline"
+  }
+ ],
+ "tasks": [
+  {
+   "projectId": "proj-x",
+   "taskId": "task-x",
+   "title": "Offline task",
+   "updatedAt": 1800000000000
+  }
+ ],
+ "sessions": [
+  {
+   "projectId": "proj-x",
+   "taskId": "task-x",
+   "sessionId": "off-0",
+   "title": "offline 0",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/x",
+   "createdAt": 1800000000000,
+   "observed": {
+    "state": "disconnected",
+    "at": 1800000000000
+   },
+   "raw": {
+    "hostConnectivity": {
+     "kind": "unknown"
+    }
+   }
+  },
+  {
+   "projectId": "proj-x",
+   "taskId": "task-x",
+   "sessionId": "off-1",
+   "title": "offline 1",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/x",
+   "createdAt": 1800000000001,
+   "observed": {
+    "state": "disconnected",
+    "at": 1800000000001
+   },
+   "raw": {
+    "hostConnectivity": {
+     "kind": "unknown"
+    }
+   }
+  },
+  {
+   "projectId": "proj-x",
+   "taskId": "task-x",
+   "sessionId": "off-2",
+   "title": "offline 2",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/x",
+   "createdAt": 1800000000002,
+   "observed": {
+    "state": "disconnected",
+    "at": 1800000000002
+   },
+   "raw": {
+    "hostConnectivity": {
+     "kind": "unknown"
+    }
+   }
+  },
+  {
+   "projectId": "proj-x",
+   "taskId": "task-x",
+   "sessionId": "off-3",
+   "title": "offline 3",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/x",
+   "createdAt": 1800000000003,
+   "observed": {
+    "state": "disconnected",
+    "at": 1800000000003
+   },
+   "raw": {
+    "hostConnectivity": {
+     "kind": "unknown"
+    }
+   }
+  }
+ ],
+ "approvals": []
+}

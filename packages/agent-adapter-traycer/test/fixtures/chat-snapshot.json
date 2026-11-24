@@ -1,0 +1,7 @@
+{"kind":"snapshot","hasBinaryPayload":false,"epicId":"e","chatId":"c","snapshot":{
+"chat":{"parentId":null,"id":"c","userId":"u-1","hostId":"h","title":"Chat","createdAt":1,"updatedAt":1,"isTitleEditedByUser":false},
+"access":{"role":"owner","ownerUserId":"u-1","canAct":true},
+"queue":{"status":"idle","items":[]},"runStatus":"idle","activeTurn":null,"pendingApprovals":[],"pendingInterviews":[],
+"worktreeBinding":null,"missingWorktreePaths":[],"pendingFileEditApprovals":[],"accumulatedFileChangeCount":0,
+"transcriptEpoch":0,"rowCount":0,"indexRevision":null,"tail":{"fromOrdinal":0,"messages":[],"events":[]},
+"derived":{"latestAssistantUsage":null,"pinnedTodo":null,"pinnedTaskTodoItems":[],"latestForkableAssistantMessageId":null,"restorableSetupInterruption":null,"interviewAnswerability":[],"latestAssistantAuthFailureTurnKey":null,"setupCardWindows":[]}}}

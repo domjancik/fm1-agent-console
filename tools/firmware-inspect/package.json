@@ -1,0 +1,14 @@
+{
+  "name": "@fm1/firmware-inspect",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Read-only inspection of FM-1 .fwsc packages, flash dumps and the connected FM-1's USB identity. Never writes to a device.",
+  "bin": { "firmware-inspect": "src/cli.ts" },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify": "bun src/cli.ts verify"
+  }
+}

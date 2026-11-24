@@ -1,0 +1,12 @@
+{
+  "name": "@fm1/traycer-relay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Operator-requested messages to any Traycer session as the user: GUI chat turns, typed into terminal agents, a2a fallback.",
+  "bin": { "traycer-relay": "src/cli.ts" },
+  "dependencies": {
+    "@fm1/agent-adapter-traycer": "workspace:*",
+    "@fm1/agent-core": "workspace:*"
+  }
+}

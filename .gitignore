@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+reports/evidence/*.wav
+.env
+vendor/traycer/node_modules/
+.claude/worktrees/

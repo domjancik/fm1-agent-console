@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FM-1 Companion</title>
+<style>
+  :root {
+    --bg: #f6f6f4; --panel: #ffffff; --edge: #d9d9d4; --text: #1d1f22; --muted: #6b7078;
+    --ok: #1f9d55; --warn: #b7791f; --bad: #c53030; --accent: #2f6fd6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15171a; --panel: #1f2226; --edge: #343841; --text: #e6e6e6; --muted: #8a8f98;
+            --ok: #38c172; --warn: #f6ad55; --bad: #fc8181; --accent: #63a4ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 ui-sans-serif, system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--edge); }
+  header h1 { margin: 0; font-size: 16px; }
+  main { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px; padding: 16px; max-width: 1400px; }
+  section { background: var(--panel); border: 1px solid var(--edge); border-radius: 10px; padding: 14px; min-width: 0; }
+  section h2 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .wide { grid-column: 1 / -1; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; overflow-wrap: anywhere; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--edge); font-size: 12px; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); } .muted { color: var(--muted); }
+  ul.caps, ul.sessions, ul.stages { list-style: none; margin: 0; padding: 0; }
+  ul.caps li, ul.stages li { padding: 3px 0; border-bottom: 1px dashed var(--edge); }
+  .task { margin-bottom: 10px; }
+  .task-title { font-weight: 600; }
+  ul.sessions li { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 4px 6px; border-radius: 6px; }
+  ul.sessions li.selected { outline: 2px solid var(--accent); }
+  ul.sessions li.stale { opacity: .55; text-decoration: line-through; }
+  textarea { width: 100%; min-height: 120px; font: inherit; padding: 8px; border-radius: 6px; border: 1px solid var(--edge); background: var(--bg); color: var(--text); }
+  textarea:disabled { opacity: .6; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+  button { font: inherit; padding: 6px 14px; border-radius: 6px; border: 1px solid var(--edge); background: var(--bg); color: var(--text); cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .meter { height: 8px; background: var(--edge); border-radius: 4px; overflow: hidden; flex: 1; min-width: 80px; }
+  .meter > div { height: 100%; background: var(--ok); width: 0; transition: width .1s; }
+  form.config { display: grid; grid-template-columns: max-content 1fr; gap: 6px 10px; align-items: center; }
+  form.config input, form.config select { font: inherit; padding: 4px 6px; border-radius: 6px; border: 1px solid var(--edge); background: var(--bg); color: var(--text); min-width: 0; }
+  pre.log { margin: 0; max-height: 280px; overflow: auto; font: 12px/1.4 ui-monospace, SFMono-Regular, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .legend { font-family: ui-monospace, monospace; }
+  a { color: var(--accent); }
+  kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--edge); border-radius: 4px; padding: 0 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>FM-1 Companion</h1>
+  <div class="row" style="margin:0">
+    <span id="conn" class="pill">connecting</span>
+    <a id="sim-link" href="#" hidden target="_blank" rel="noopener">Simulator</a>
+  </div>
+</header>
+<main>
+  <section>
+    <h2>Status</h2>
+    <dl class="kv">
+      <dt>Backend</dt><dd id="backend"></dd>
+      <dt>Device</dt><dd id="device"></dd>
+      <dt>Device view</dt><dd id="dview"></dd>
+      <dt>Legend</dt><dd id="legend" class="legend"></dd>
+    </dl>
+    <h2 style="margin-top:12px">Capabilities</h2>
+    <ul id="caps" class="caps"></ul>
+  </section>
+  <section>
+    <h2>Voice prompt</h2>
+    <dl class="kv">
+      <dt>State</dt><dd id="vstate"></dd>
+      <dt>Target</dt><dd id="vtarget"></dd>
+    </dl>
+    <div class="row"><span class="muted">Level</span><div class="meter"><div id="vlevel"></div></div><span id="velapsed" class="muted"></span></div>
+    <textarea id="transcript" aria-label="Transcript" disabled placeholder="Hold REC on the FM-1 to dictate"></textarea>
+    <div class="row">
+      <button id="save" class="primary" disabled>SAVE (send)</button>
+      <button id="cancel" disabled>CANCEL (FX)</button>
+      <span class="muted"><kbd>Ctrl</kbd>+<kbd>Enter</kbd> save, <kbd>Esc</kbd> cancel</span>
+    </div>
+    <p id="verror" class="bad" hidden></p>
+    <h2 style="margin-top:12px">Dispatch</h2>
+    <ul id="stages" class="stages"></ul>
+  </section>
+  <section>
+    <h2>Sessions</h2>
+    <div id="tasks"></div>
+  </section>
+  <section>
+    <h2>Configuration</h2>
+    <form id="config" class="config">
+      <label for="c-mic">Mic device UID</label><input id="c-mic" name="micDeviceUid" placeholder="system default" />
+      <label for="c-asr">ASR engine</label>
+      <select id="c-asr" name="asrEngine"><option value="sherpa">Parakeet (sherpa-onnx)</option><option value="apple">Apple dictation</option></select>
+      <label for="c-lang">Language</label><input id="c-lang" name="language" />
+      <label for="c-vocab">Vocabulary file</label><input id="c-vocab" name="vocabularyFile" placeholder="bundled default" />
+      <label for="c-deeplink">Focus deep link</label><input id="c-deeplink" name="focusDeepLink" type="checkbox" />
+      <label for="c-a2aself" title="Prompts to Claude terminal agents go out as the agent itself when no sender is set for its task. Applies at the next start.">Terminal prompts as self</label><input id="c-a2aself" name="a2aSelfSend" type="checkbox" />
+      <label for="c-provider">New-session provider</label>
+      <select id="c-provider" name="provider"><option value="claude">claude</option><option value="codex">codex</option></select>
+      <label for="c-model">New-session model</label><input id="c-model" name="model" placeholder="backend default" />
+      <label for="c-layout-sessions">Sessions screen (SEQ)</label>
+      <select id="c-layout-sessions" name="layoutSessions"><option value="buddy">Buddy</option><option value="list">List</option><option value="grouped">Grouped</option></select>
+      <label for="c-layout-inbox">TO DO screen (SEQ)</label>
+      <select id="c-layout-inbox" name="layoutInbox"><option value="buddy">Buddy</option><option value="list">List</option></select>
+      <label for="c-keys" title="SETTINGS on the device (hold ARP 1 s). Split: the black keys are filters and tasks, the white keys their sessions. Needs FM-1 firmware with protocol 6.">Keys (SETTINGS)</label>
+      <div class="row" style="margin:0"><select id="c-keys" name="keys"><option value="ranked">Ranked</option><option value="split">Split</option></select><span id="c-keys-note" class="muted"></span></div>
+      <span></span><div class="row" style="margin:0"><button type="submit">Save config</button><span id="c-msg" class="muted"></span></div>
+    </form>
+  </section>
+  <section class="wide">
+    <h2>Diagnostics</h2>
+    <pre id="log" class="log"></pre>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

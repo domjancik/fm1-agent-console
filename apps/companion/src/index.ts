@@ -1,0 +1,18 @@
+export { Companion, type CompanionOptions } from "./companion";
+export { ADAPTERS, ADAPTER_KINDS, DEFAULT_ADAPTER, createAdapter, loadTraycerAdapter, assertAgentAdapter, parseAdapterKind, AdapterUnavailableError, TRAYCER_EXPORT, TRAYCER_MODULE, type AdapterEntry, type AdapterKind, type AdapterFactoryOptions, type A2aSenderOption } from "./adapters";
+export { DEFAULT_CONFIG, configPath, loadConfig, saveConfig, mergeConfig, ConfigError, type CompanionConfig } from "./config";
+export { DiagLog, redact, type LogEntry, type LogLevel, type LogSource } from "./diag-log";
+export { DeviceHost, type DeviceStatus, type DevicePhase, type InputHandler, type DeviceHostOptions } from "./device/device-host";
+export { diffFrames, fullFrames, slotFrame, stageCode } from "./device/render";
+export { toDeviceInput, describeInput } from "./device/inputs";
+export { PortWatcher, DEFAULT_BACKOFF, type BackoffOptions } from "./device/port-watcher";
+export { REAL_PORT_NAME, SIM_PORT_NAME, classifyPorts, checkExact, coreMidiDriver, hasExactPort, AmbiguousPortError, type PortDriver } from "./device/ports";
+export { FixtureCapture, MicCaptureSource, loadFixtureAudio, levelFromRms, type Capture, type CaptureFactory, type CapturedAudio } from "./voice/capture";
+export { SpeechTranscriber, ScriptedTranscriber, type Transcriber, type TranscriptOutcome } from "./voice/transcriber";
+export { VoiceController } from "./voice/voice-controller";
+export { StageRelay, stageText } from "./stage-relay";
+export { feedbackFor } from "./feedback";
+export { buildUiState } from "./ui-bridge/ui-state";
+export { companionBackend } from "./ui-bridge/backend";
+export { startRuntime, type Runtime, type RuntimeOptions, type DeviceMode } from "./runtime";
+export { runDoctor, formatChecks, type Check } from "./doctor/checks";

@@ -1,0 +1,22 @@
+{
+  "name": "@fm1/agent-adapter-traycer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "FM-1 AgentAdapter for the local Traycer host (WS RPC + streams over the vendored @traycer/protocol at host-v1.5.4).",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "live-readonly": "bun scripts/live-readonly.ts"
+  },
+  "fm1": {
+    "vendoredDependencies": "../../vendor/traycer (resolved via tsconfig paths; run `bun install` in vendor/traycer for zod)"
+  },
+  "dependencies": {
+    "@fm1/agent-core": "workspace:*"
+  }
+}

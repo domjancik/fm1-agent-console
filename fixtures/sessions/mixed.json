@@ -1,0 +1,26 @@
+{
+  "name": "mixed",
+  "backendId": "traycer",
+  "hostId": "host-mbp",
+  "projects": [
+    { "projectId": "proj-console", "name": "fm1-console" },
+    { "projectId": "proj-api", "name": "billing-api" }
+  ],
+  "tasks": [
+    { "projectId": "proj-console", "taskId": "task-fw", "title": "Firmware app", "updatedAt": 1800000000000 },
+    { "projectId": "proj-console", "taskId": "task-voice", "title": "Voice composer", "updatedAt": 1800000001000 },
+    { "projectId": "proj-api", "taskId": "task-refund", "title": "Refund webhook", "updatedAt": 1800000002000 }
+  ],
+  "sessions": [
+    { "projectId": "proj-console", "taskId": "task-fw", "sessionId": "s-claude-fw", "title": "fw codec", "provider": "claude", "runtime": "chat", "workspace": "/repo/fm1", "createdAt": 1800000000100, "summary": "Writing C codec", "observed": { "state": "working", "at": 1800000010000 }, "raw": { "runStatus": "running", "activeTurn": { "status": "running" } } },
+    { "projectId": "proj-console", "taskId": "task-fw", "sessionId": "s-codex-fw", "title": "fw review", "provider": "codex", "runtime": "terminal", "workspace": "/repo/fm1", "createdAt": 1800000000200, "summary": "Needs approval: rm build/", "observed": { "state": "approval_required", "at": 1800000011000 }, "raw": { "notification": "approval.requested" } },
+    { "projectId": "proj-console", "taskId": "task-voice", "sessionId": "s-claude-voice", "title": "voice tests", "provider": "claude", "runtime": "chat", "workspace": "/repo/voice", "createdAt": 1800000000300, "summary": "Tests failed: 3", "observed": { "state": "failed", "at": 1800000012000, "detail": "errored" }, "raw": { "activeTurn": { "status": "errored" } } },
+    { "projectId": "proj-console", "taskId": "task-voice", "sessionId": "s-codex-voice", "title": "mic capture", "provider": "codex", "runtime": "chat", "workspace": "/repo/voice", "createdAt": 1800000000400, "summary": "Done: Swift CLI", "observed": { "state": "completed_unread", "at": 1800000013000 }, "raw": { "activeTurn": { "status": "completed" }, "readAt": null } },
+    { "projectId": "proj-api", "taskId": "task-refund", "sessionId": "s-claude-refund", "title": "refund spec", "provider": "claude", "runtime": "terminal", "workspace": "/repo/api", "createdAt": 1800000000500, "summary": "Which currency?", "observed": { "state": "waiting_input", "at": 1800000014000 }, "raw": { "notification": "interview.requested" } },
+    { "projectId": "proj-api", "taskId": "task-refund", "sessionId": "s-claude-idle", "title": "refund impl", "provider": "claude", "runtime": "chat", "workspace": "/repo/api", "createdAt": 1800000000600, "observed": { "state": "idle", "at": 1800000015000 }, "raw": { "runStatus": "idle" } },
+    { "projectId": "proj-api", "taskId": "task-refund", "sessionId": "s-codex-tui", "title": "refund tui", "provider": "codex", "runtime": "terminal", "workspace": "/repo/api", "createdAt": 1800000000700, "observed": { "state": null, "at": 1800000016000 }, "inferred": { "state": "working", "reason": "PTY output in last 5s" }, "raw": { "sessionState": "running", "active": true } }
+  ],
+  "approvals": [
+    { "id": "appr-1", "projectId": "proj-console", "taskId": "task-fw", "sessionId": "s-codex-fw", "summary": "rm -rf build/", "createdAt": 1800000011000 }
+  ]
+}

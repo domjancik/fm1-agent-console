@@ -1,0 +1,789 @@
+{
+ "name": "forty",
+ "backendId": "traycer",
+ "hostId": "host-mbp",
+ "projects": [
+  {
+   "projectId": "proj-a",
+   "name": "alpha"
+  },
+  {
+   "projectId": "proj-b",
+   "name": "beta"
+  }
+ ],
+ "tasks": [
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "title": "Task 00",
+   "updatedAt": 1800000000000
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "title": "Task 01",
+   "updatedAt": 1800000001000
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "title": "Task 02",
+   "updatedAt": 1800000002000
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "title": "Task 03",
+   "updatedAt": 1800000003000
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "title": "Task 04",
+   "updatedAt": 1800000004000
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "title": "Task 05",
+   "updatedAt": 1800000005000
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "title": "Task 06",
+   "updatedAt": 1800000006000
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "title": "Task 07",
+   "updatedAt": 1800000007000
+  }
+ ],
+ "sessions": [
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "sessionId": "sess-00",
+   "title": "agent 00",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000100,
+   "observed": {
+    "state": "working",
+    "at": 1800000010000
+   },
+   "raw": {
+    "fixture": "working"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "sessionId": "sess-01",
+   "title": "agent 01",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000101,
+   "observed": {
+    "state": "idle",
+    "at": 1800000010001
+   },
+   "raw": {
+    "fixture": "idle"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "sessionId": "sess-02",
+   "title": "agent 02",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000102,
+   "observed": {
+    "state": "waiting_input",
+    "at": 1800000010002
+   },
+   "raw": {
+    "fixture": "waiting_input"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "sessionId": "sess-03",
+   "title": "agent 03",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000103,
+   "observed": {
+    "state": "completed_unread",
+    "at": 1800000010003
+   },
+   "raw": {
+    "fixture": "completed_unread"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "sessionId": "sess-04",
+   "title": "agent 04",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000104,
+   "observed": {
+    "state": "completed_read",
+    "at": 1800000010004
+   },
+   "raw": {
+    "fixture": "completed_read"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "sessionId": "sess-05",
+   "title": "agent 05",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000105,
+   "observed": {
+    "state": "failed",
+    "at": 1800000010005
+   },
+   "raw": {
+    "fixture": "failed"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-06",
+   "title": "agent 06",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000106,
+   "observed": {
+    "state": "approval_required",
+    "at": 1800000010006
+   },
+   "raw": {
+    "fixture": "approval_required"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "sessionId": "sess-07",
+   "title": "agent 07",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000107,
+   "observed": {
+    "state": "unknown",
+    "at": 1800000010007
+   },
+   "raw": {
+    "fixture": "unknown"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "sessionId": "sess-08",
+   "title": "agent 08",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000108,
+   "observed": {
+    "state": "working",
+    "at": 1800000010008
+   },
+   "raw": {
+    "fixture": "working"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "sessionId": "sess-09",
+   "title": "agent 09",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000109,
+   "observed": {
+    "state": "idle",
+    "at": 1800000010009
+   },
+   "raw": {
+    "fixture": "idle"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "sessionId": "sess-10",
+   "title": "agent 10",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000110,
+   "observed": {
+    "state": "waiting_input",
+    "at": 1800000010010
+   },
+   "raw": {
+    "fixture": "waiting_input"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "sessionId": "sess-11",
+   "title": "agent 11",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000111,
+   "observed": {
+    "state": "completed_unread",
+    "at": 1800000010011
+   },
+   "raw": {
+    "fixture": "completed_unread"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "sessionId": "sess-12",
+   "title": "agent 12",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000112,
+   "observed": {
+    "state": "completed_read",
+    "at": 1800000010012
+   },
+   "raw": {
+    "fixture": "completed_read"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "sessionId": "sess-13",
+   "title": "agent 13",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000113,
+   "observed": {
+    "state": "failed",
+    "at": 1800000010013
+   },
+   "raw": {
+    "fixture": "failed"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-14",
+   "title": "agent 14",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000114,
+   "observed": {
+    "state": "approval_required",
+    "at": 1800000010014
+   },
+   "raw": {
+    "fixture": "approval_required"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "sessionId": "sess-15",
+   "title": "agent 15",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000115,
+   "observed": {
+    "state": "unknown",
+    "at": 1800000010015
+   },
+   "raw": {
+    "fixture": "unknown"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "sessionId": "sess-16",
+   "title": "agent 16",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000116,
+   "observed": {
+    "state": "working",
+    "at": 1800000010016
+   },
+   "raw": {
+    "fixture": "working"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "sessionId": "sess-17",
+   "title": "agent 17",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000117,
+   "observed": {
+    "state": "idle",
+    "at": 1800000010017
+   },
+   "raw": {
+    "fixture": "idle"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "sessionId": "sess-18",
+   "title": "agent 18",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000118,
+   "observed": {
+    "state": "waiting_input",
+    "at": 1800000010018
+   },
+   "raw": {
+    "fixture": "waiting_input"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "sessionId": "sess-19",
+   "title": "agent 19",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000119,
+   "observed": {
+    "state": "completed_unread",
+    "at": 1800000010019
+   },
+   "raw": {
+    "fixture": "completed_unread"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "sessionId": "sess-20",
+   "title": "agent 20",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000120,
+   "observed": {
+    "state": "completed_read",
+    "at": 1800000010020
+   },
+   "raw": {
+    "fixture": "completed_read"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "sessionId": "sess-21",
+   "title": "agent 21",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000121,
+   "observed": {
+    "state": "failed",
+    "at": 1800000010021
+   },
+   "raw": {
+    "fixture": "failed"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-22",
+   "title": "agent 22",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000122,
+   "observed": {
+    "state": "approval_required",
+    "at": 1800000010022
+   },
+   "raw": {
+    "fixture": "approval_required"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "sessionId": "sess-23",
+   "title": "agent 23",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000123,
+   "observed": {
+    "state": "unknown",
+    "at": 1800000010023
+   },
+   "raw": {
+    "fixture": "unknown"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "sessionId": "sess-24",
+   "title": "agent 24",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000124,
+   "observed": {
+    "state": "working",
+    "at": 1800000010024
+   },
+   "raw": {
+    "fixture": "working"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "sessionId": "sess-25",
+   "title": "agent 25",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000125,
+   "observed": {
+    "state": "idle",
+    "at": 1800000010025
+   },
+   "raw": {
+    "fixture": "idle"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "sessionId": "sess-26",
+   "title": "agent 26",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000126,
+   "observed": {
+    "state": "waiting_input",
+    "at": 1800000010026
+   },
+   "raw": {
+    "fixture": "waiting_input"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "sessionId": "sess-27",
+   "title": "agent 27",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000127,
+   "observed": {
+    "state": "completed_unread",
+    "at": 1800000010027
+   },
+   "raw": {
+    "fixture": "completed_unread"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "sessionId": "sess-28",
+   "title": "agent 28",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000128,
+   "observed": {
+    "state": "completed_read",
+    "at": 1800000010028
+   },
+   "raw": {
+    "fixture": "completed_read"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "sessionId": "sess-29",
+   "title": "agent 29",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000129,
+   "observed": {
+    "state": "failed",
+    "at": 1800000010029
+   },
+   "raw": {
+    "fixture": "failed"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-30",
+   "title": "agent 30",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000130,
+   "observed": {
+    "state": "approval_required",
+    "at": 1800000010030
+   },
+   "raw": {
+    "fixture": "approval_required"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "sessionId": "sess-31",
+   "title": "agent 31",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000131,
+   "observed": {
+    "state": "unknown",
+    "at": 1800000010031
+   },
+   "raw": {
+    "fixture": "unknown"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-00",
+   "sessionId": "sess-32",
+   "title": "agent 32",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000132,
+   "observed": {
+    "state": "working",
+    "at": 1800000010032
+   },
+   "raw": {
+    "fixture": "working"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-01",
+   "sessionId": "sess-33",
+   "title": "agent 33",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000133,
+   "observed": {
+    "state": "idle",
+    "at": 1800000010033
+   },
+   "raw": {
+    "fixture": "idle"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-02",
+   "sessionId": "sess-34",
+   "title": "agent 34",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000134,
+   "observed": {
+    "state": "waiting_input",
+    "at": 1800000010034
+   },
+   "raw": {
+    "fixture": "waiting_input"
+   }
+  },
+  {
+   "projectId": "proj-a",
+   "taskId": "task-03",
+   "sessionId": "sess-35",
+   "title": "agent 35",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-a",
+   "createdAt": 1800000000135,
+   "observed": {
+    "state": "completed_unread",
+    "at": 1800000010035
+   },
+   "raw": {
+    "fixture": "completed_unread"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-04",
+   "sessionId": "sess-36",
+   "title": "agent 36",
+   "provider": "codex",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000136,
+   "observed": {
+    "state": "completed_read",
+    "at": 1800000010036
+   },
+   "raw": {
+    "fixture": "completed_read"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-05",
+   "sessionId": "sess-37",
+   "title": "agent 37",
+   "provider": "claude",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000137,
+   "observed": {
+    "state": "failed",
+    "at": 1800000010037
+   },
+   "raw": {
+    "fixture": "failed"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-38",
+   "title": "agent 38",
+   "provider": "claude",
+   "runtime": "chat",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000138,
+   "observed": {
+    "state": "approval_required",
+    "at": 1800000010038
+   },
+   "raw": {
+    "fixture": "approval_required"
+   }
+  },
+  {
+   "projectId": "proj-b",
+   "taskId": "task-07",
+   "sessionId": "sess-39",
+   "title": "agent 39",
+   "provider": "codex",
+   "runtime": "terminal",
+   "workspace": "/repo/proj-b",
+   "createdAt": 1800000000139,
+   "observed": {
+    "state": "unknown",
+    "at": 1800000010039
+   },
+   "raw": {
+    "fixture": "unknown"
+   }
+  }
+ ],
+ "approvals": [
+  {
+   "id": "appr-06",
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-06",
+   "summary": "approve step 06",
+   "createdAt": 1800000010006
+  },
+  {
+   "id": "appr-14",
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-14",
+   "summary": "approve step 14",
+   "createdAt": 1800000010014
+  },
+  {
+   "id": "appr-22",
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-22",
+   "summary": "approve step 22",
+   "createdAt": 1800000010022
+  },
+  {
+   "id": "appr-30",
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-30",
+   "summary": "approve step 30",
+   "createdAt": 1800000010030
+  },
+  {
+   "id": "appr-38",
+   "projectId": "proj-b",
+   "taskId": "task-06",
+   "sessionId": "sess-38",
+   "summary": "approve step 38",
+   "createdAt": 1800000010038
+  }
+ ]
+}

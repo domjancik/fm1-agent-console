@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "epicId": "243c50b9-ac47-47d8-8254-c1292092c1bb",
+      "chatIds": [
+        "51b0ff2e-946b-40f7-98e5-3d0adaeec793",
+        "067bd5f8-5ad3-4682-a6c4-5252e54e4147",
+        "3689178b-0ce4-4514-92ab-a8a3d2170ec9",
+        "9ff8d6b9-10f4-4b8f-8a53-6bb09feae6b3",
+        "00de2d3e-bb40-46d4-9ac0-8a7e85d443f1",
+        "696edaf0-35ef-4d54-b5ca-aaf87fc3549d",
+        "8a7fec60-b283-4acf-a0d0-6be6f2e1f207",
+        "08488a00-d6c8-4c8f-bf4e-73c02fec81a3"
+      ],
+      "createdAt": "2026-11-17T18:52:37.513Z",
+      "purpose": "FM-1 Traycer smoke T2/T6 (claude haiku, supervised). Created by traycer task create, idempotency key fm1-smoke-claude-20261117, workspace /Users/dominikj/dev/personal/fm1-agent-console-smoke. Chat 067bd5f8-5ad3-4682-a6c4-5252e54e4147 added 2026-11-17T18:56Z via epic.createChat (codex gpt-5.6-luna low, supervised) for T3. Chat 3689178b-0ce4-4514-92ab-a8a3d2170ec9 added by tools/smoke-traycer T7 (createSession, claude haiku, supervised). Chat 9ff8d6b9-10f4-4b8f-8a53-6bb09feae6b3 added by tools/smoke-traycer T7 (createSession, claude haiku, supervised). Chat 00de2d3e-bb40-46d4-9ac0-8a7e85d443f1 added by tools/smoke-traycer T7 (createSession, claude haiku, supervised). Agent 696edaf0-35ef-4d54-b5ca-aaf87fc3549d (tui claude/haiku, 'FM1 a2a receiver (disposable)') created 2026-11-18T10:49:51.969Z by tools/traycer-probe tui-a2a create-tui for the TUI a2a discovery. Agent 8a7fec60-b283-4acf-a0d0-6be6f2e1f207 (tui claude/haiku, 'FM1 a2a receiver 2 (disposable, trusted cwd)') created 2026-11-18T10:54:46.296Z by tools/traycer-probe tui-a2a create-tui for the TUI a2a discovery. Agent 08488a00-d6c8-4c8f-bf4e-73c02fec81a3 (gui claude/haiku, 'FM1 Console') created 2026-11-18T11:01:39.798Z by tools/traycer-probe tui-a2a create-tui for the TUI a2a discovery. a2aSenderId 08488a00-d6c8-4c8f-bf4e-73c02fec81a3 ('FM1 Console', GUI claude/haiku, no turns) is the sender for TUI a2a prompts (tools/smoke-traycer TUI-A2A). Receiver 696edaf0 is stopped (it sat at the Claude folder-trust dialog, never started its monitor); 8a7fec60 (cwd /Users/dominikj/dev) is the live a2a receiver. 9ff8d6b9 was archived by the a2a discovery (archived-sender case).",
+      "a2aSenderId": "08488a00-d6c8-4c8f-bf4e-73c02fec81a3"
+    },
+    {
+      "epicId": "2b41a2a1-2fc9-4998-aed6-21a728fd0b6c",
+      "chatIds": [
+        "3128d065-dc5c-4d25-8886-614696750ce0"
+      ],
+      "createdAt": "2026-11-17T20:38:21.507Z",
+      "purpose": "FM1 smoke T5 task created by tools/smoke-traycer createTask, idempotency key fm1-smoke-t5-de6ad4ce-d8a5-4255-a007-198e17b5071f, workspace /Users/dominikj/dev/personal/fm1-agent-console-smoke. Chat 3128d065-dc5c-4d25-8886-614696750ce0 is its first agent."
+    },
+    {
+      "epicId": "86facc1a-5ab8-4780-89f7-7868a6a0bf7a",
+      "chatIds": [
+        "11d00d84-a127-4c0b-859e-6ede37b18686"
+      ],
+      "createdAt": "2026-11-17T20:58:32.000Z",
+      "purpose": "FM1 smoke T5 task created by tools/smoke-traycer createTask, idempotency key fm1-smoke-t5-9217e814-7f4b-44d3-aa35-17d5c56c875e, workspace /Users/dominikj/dev/personal/fm1-agent-console-smoke. Chat 11d00d84-a127-4c0b-859e-6ede37b18686 is its first agent."
+    }
+  ]
+}

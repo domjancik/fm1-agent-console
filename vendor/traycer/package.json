@@ -1,0 +1,9 @@
+{
+  "name": "@fm1-vendor/traycer",
+  "private": true,
+  "type": "module",
+  "description": "Vendored subset of github.com/traycerai/traycer at tag host-v1.5.4 (MIT). See VENDORED.md.",
+  "dependencies": {
+    "zod": "4.6.7"
+  }
+}

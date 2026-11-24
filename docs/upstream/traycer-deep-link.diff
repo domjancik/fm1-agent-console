@@ -1,0 +1,301 @@
+diff -ruN a/clients/desktop/src/electron-main/auth/__tests__/deep-link.test.ts b/clients/desktop/src/electron-main/auth/__tests__/deep-link.test.ts
+--- a/clients/desktop/src/electron-main/auth/__tests__/deep-link.test.ts	2026-11-17 20:45:55
++++ b/clients/desktop/src/electron-main/auth/__tests__/deep-link.test.ts	2026-11-17 20:46:43
+@@ -131,3 +131,65 @@
+     expect(handler).toHaveBeenCalledTimes(1);
+   });
+ });
++
++describe("traycer://open/epic/<epicId>/chat/<chatId> deep links", () => {
++  const EPIC = "6b1c3f0e-2d4a-4e8b-9c7d-1a2b3c4d5e6f";
++  const CHAT = "0f1e2d3c-4b5a-4968-8776-655443322110";
++
++  beforeEach(() => {
++    appListeners.clear();
++    vi.clearAllMocks();
++    vi.unstubAllEnvs();
++    vi.resetModules();
++  });
++
++  it("parses epic and chat ids and ignores an optional focus hint", async () => {
++    const mod = await import("../deep-link");
++    expect(
++      mod.parseOpenChatUri(`traycer-dev://open/epic/${EPIC}/chat/${CHAT}`),
++    ).toEqual({ epicId: EPIC, chatId: CHAT });
++    expect(
++      mod.parseOpenChatUri(
++        `traycer-dev://open/epic/${EPIC}/chat/${CHAT}/?focus=composer`,
++      ),
++    ).toEqual({ epicId: EPIC, chatId: CHAT });
++  });
++
++  it("rejects other schemes, other paths and ids outside the opaque alphabet", async () => {
++    const mod = await import("../deep-link");
++    for (const uri of [
++      `https://open/epic/${EPIC}/chat/${CHAT}`,
++      `traycer-dev://open/epic/${EPIC}`,
++      `traycer-dev://open/epic/${EPIC}/chat/${CHAT}/extra`,
++      `traycer-dev://open/epic/..%2F..%2Fetc/chat/${CHAT}`,
++      `traycer-dev://open/epic/${EPIC}/chat/a.b`,
++      `traycer-dev://open/epic/${"x".repeat(129)}/chat/${CHAT}`,
++      "traycer-dev://auth/callback",
++    ]) {
++      expect(mod.parseOpenChatUri(uri)).toBeNull();
++    }
++  });
++
++  it("delivers a valid open-chat link to the handler and never to the auth handler", async () => {
++    const mod = await import("../deep-link");
++    const auth = vi.fn();
++    const openChat = vi.fn();
++    mod.registerDeepLinkHandling(auth, openChat);
++
++    fireOpenUrl(`traycer-dev://open/epic/${EPIC}/chat/${CHAT}`);
++
++    expect(openChat).toHaveBeenCalledTimes(1);
++    expect(openChat).toHaveBeenCalledWith({ epicId: EPIC, chatId: CHAT });
++    expect(auth).not.toHaveBeenCalled();
++  });
++
++  it("ignores open-chat links when no handler is installed (auth-only callers)", async () => {
++    const mod = await import("../deep-link");
++    const auth = vi.fn();
++    mod.registerDeepLinkHandling(auth);
++
++    fireOpenUrl(`traycer-dev://open/epic/${EPIC}/chat/${CHAT}`);
++
++    expect(auth).not.toHaveBeenCalled();
++  });
++});
+diff -ruN a/clients/desktop/src/electron-main/auth/deep-link.ts b/clients/desktop/src/electron-main/auth/deep-link.ts
+--- a/clients/desktop/src/electron-main/auth/deep-link.ts	2026-11-17 20:45:55
++++ b/clients/desktop/src/electron-main/auth/deep-link.ts	2026-11-17 20:46:11
+@@ -33,6 +33,25 @@
+ export type AuthReturnSignalHandler = () => void;
+ 
+ /**
++ * Target of a `traycer://open/epic/<epicId>/chat/<chatId>` deep link. Ids only:
++ * the link names WHERE to look, never WHAT to do there. No prompt text, no
++ * action, no host override - so the worst a hostile link can do is bring one
++ * of the signed-in user's own chats forward.
++ */
++export interface OpenChatDeepLinkTarget {
++  readonly epicId: string;
++  readonly chatId: string;
++}
++
++export type OpenChatDeepLinkHandler = (target: OpenChatDeepLinkTarget) => void;
++
++const OPEN_CHAT_PATH = /^open\/epic\/([^/]+)\/chat\/([^/]+)$/;
++// Epic and chat ids are UUIDs today; accept the same conservative alphabet
++// the rest of the client treats as an opaque id, and nothing else (no dots,
++// slashes, percent-escapes or whitespace survive to the renderer).
++const OPAQUE_ID = /^[A-Za-z0-9][A-Za-z0-9_-]{0,127}$/;
++
++/**
+  * Whether `uri` is a `traycer://auth/callback` deep link (ignoring any query).
+  * A stray legacy `?code=…` is tolerated - we never read it. Other traycer
+  * deep links (e.g. session links) and non-traycer URIs return `false`.
+@@ -54,6 +73,37 @@
+ }
+ 
+ /**
++ * Parses `traycer://open/epic/<epicId>/chat/<chatId>[?focus=composer]`.
++ * Returns `null` for anything else, including a malformed or over-long id.
++ * The optional `focus` query is accepted and ignored: an activated chat tile
++ * already autofocuses its composer on desktop (`ComposerPromptEditor`), so the
++ * hint exists only so callers can state intent without breaking older builds.
++ */
++export function parseOpenChatUri(uri: string): OpenChatDeepLinkTarget | null {
++  if (!uri.startsWith(`${PROTOCOL_SCHEME}://`)) {
++    return null;
++  }
++  let parsed: URL;
++  try {
++    parsed = new URL(uri);
++  } catch {
++    return null;
++  }
++  const path = `${parsed.host}${parsed.pathname}`
++    .replace(/^\/+/, "")
++    .replace(/\/+$/, "");
++  const match = OPEN_CHAT_PATH.exec(path);
++  if (match === null) {
++    return null;
++  }
++  const [, epicId, chatId] = match;
++  if (!OPAQUE_ID.test(epicId) || !OPAQUE_ID.test(chatId)) {
++    return null;
++  }
++  return { epicId, chatId };
++}
++
++/**
+  * Registers the `traycer://` custom protocol and wires the platform-specific
+  * entry points:
+  *   - `app.setAsDefaultProtocolClient` is the cross-platform registration
+@@ -67,10 +117,13 @@
+  * The protocol registration is unchanged from the redirect era; only the
+  * handler is demoted. A `traycer://auth/callback` deep link fires the
+  * payload-free `AuthReturnSignalHandler` (focus + poll-nudge); it parses no
+- * payload and drives no exchange. Non-auth traycer URIs are ignored.
++ * payload and drives no exchange. A `traycer://open/epic/<id>/chat/<id>` link
++ * fires `openChatHandler` (when one is installed) with the validated ids.
++ * Every other traycer URI is ignored.
+  */
+ export function registerDeepLinkHandling(
+   handler: AuthReturnSignalHandler,
++  openChatHandler: OpenChatDeepLinkHandler | null = null,
+ ): void {
+   if (process.defaultApp) {
+     if (process.argv.length >= 2) {
+@@ -83,11 +136,20 @@
+   }
+ 
+   const deliver = (uri: string): void => {
+-    if (!isAuthCallbackUri(uri)) {
++    if (isAuthCallbackUri(uri)) {
++      log.info("[deep-link] auth return signal - nudging the device poll");
++      handler();
+       return;
+     }
+-    log.info("[deep-link] auth return signal - nudging the device poll");
+-    handler();
++    if (openChatHandler === null) {
++      return;
++    }
++    const target = parseOpenChatUri(uri);
++    if (target === null) {
++      return;
++    }
++    log.info("[deep-link] open chat");
++    openChatHandler(target);
+   };
+ 
+   app.on("open-url", (event, url) => {
+diff -ruN a/clients/desktop/src/electron-main/ipc/runner-ipc-bridge.ts b/clients/desktop/src/electron-main/ipc/runner-ipc-bridge.ts
+--- a/clients/desktop/src/electron-main/ipc/runner-ipc-bridge.ts	2026-11-17 20:45:55
++++ b/clients/desktop/src/electron-main/ipc/runner-ipc-bridge.ts	2026-11-17 20:46:29
+@@ -83,6 +83,7 @@
+   parseNotificationClickTarget,
+   type NotificationClickTarget,
+ } from "./notification-target";
++import type { OpenChatDeepLinkTarget } from "../auth/deep-link";
+ import { registerAuthIpc } from "./auth-ipc";
+ import { registerDeviceFlowIpc } from "./device-flow-ipc";
+ import { registerTrayIpc } from "./tray-ipc";
+@@ -869,6 +870,24 @@
+       RunnerHostEvent.notificationClick,
+       payload,
+     );
++  }
++
++  /**
++   * Routes a `traycer://open/epic/<epicId>/chat/<chatId>` deep link by
++   * replaying it as a legacy raw `chat` notification click. That reuses the
++   * whole existing click path - exact-window targeting here, then
++   * `NotificationFocusBridge` -> `routeEpicChatNotification` in the renderer,
++   * which focuses the open chat tile (or restores / auto-opens it via
++   * `focusArtifactId`). A legacy `chat` route is routable without an origin
++   * host and carries no feed identity, so nothing is acknowledged or marked
++   * read, and no prompt is ever sent.
++   */
++  deliverOpenChatDeepLink(target: OpenChatDeepLinkTarget): void {
++    this.deliverNotificationClick({
++      kind: "chat",
++      epicId: target.epicId,
++      chatId: target.chatId,
++    });
+   }
+ 
+   /**
+diff -ruN a/clients/desktop/src/electron-main/startup/desktop-startup.ts b/clients/desktop/src/electron-main/startup/desktop-startup.ts
+--- a/clients/desktop/src/electron-main/startup/desktop-startup.ts	2026-11-17 20:45:55
++++ b/clients/desktop/src/electron-main/startup/desktop-startup.ts	2026-11-17 20:46:29
+@@ -22,7 +22,10 @@
+   findJumplistCommandInArgv,
+   registerJumplistCommandHandling,
+ } from "../app/jumplist-commands";
+-import { registerDeepLinkHandling } from "../auth/deep-link";
++import {
++  registerDeepLinkHandling,
++  type OpenChatDeepLinkTarget,
++} from "../auth/deep-link";
+ import { createMainWindow, loadMainWindow } from "../windows/window-factory";
+ import {
+   DesktopTrayController,
+@@ -340,6 +343,10 @@
+   // drained once the window phase exposes a renderer. Coalesced - the signal is
+   // a payload-free nudge, so repeated cold-start arrivals collapse.
+   pendingAuthReturnSignal: boolean;
++  // Last `traycer://open/epic/.../chat/...` link that arrived before the
++  // bridge existed (cold start from the link). Last-wins: only the most
++  // recent "show me this chat" is meaningful.
++  pendingOpenChat: OpenChatDeepLinkTarget | null;
+   bridge: RunnerIpcBridge | null;
+ }
+ 
+@@ -378,6 +385,17 @@
+   }
+ }
+ 
++function deliverOpenChatDeepLink(
++  state: BootState,
++  target: OpenChatDeepLinkTarget,
++): void {
++  if (state.bridge !== null) {
++    state.bridge.deliverOpenChatDeepLink(target);
++  } else {
++    state.pendingOpenChat = target;
++  }
++}
++
+ interface AppServices {
+   readonly host: HostLifecycle;
+   readonly hostController: HostController;
+@@ -424,6 +442,7 @@
+     ),
+     config: testHooks.config,
+     pendingAuthReturnSignal: false,
++    pendingOpenChat: null,
+     bridge: null,
+   };
+   testHooks.runPreReady();
+@@ -447,6 +466,7 @@
+     ),
+     config,
+     pendingAuthReturnSignal: false,
++    pendingOpenChat: null,
+     bridge: null,
+   };
+ 
+@@ -604,7 +624,10 @@
+   registerAppScheme();
+   installProcessGoneListeners();
+ 
+-  registerDeepLinkHandling(() => deliverAuthReturnSignal(state));
++  registerDeepLinkHandling(
++    () => deliverAuthReturnSignal(state),
++    (target) => deliverOpenChatDeepLink(state, target),
++  );
+ }
+ 
+ // Post-ready configuration. These steps are independent of one another, so
+@@ -1092,6 +1115,17 @@
+     const deepLinkTarget = windowRegistry.records()[0];
+     deepLinkTarget?.window.webContents.once("did-finish-load", () => {
+       bridge.deliverAuthReturnSignal();
++    });
++  }
++  // Same drain for a cold-start open-chat link. The renderer's tab
++  // navigation queues the activation until hydration, so delivering on the
++  // first `did-finish-load` is enough.
++  if (state.pendingOpenChat !== null) {
++    const pendingOpenChat = state.pendingOpenChat;
++    state.pendingOpenChat = null;
++    const deepLinkTarget = windowRegistry.records()[0];
++    deepLinkTarget?.window.webContents.once("did-finish-load", () => {
++      bridge.deliverOpenChatDeepLink(pendingOpenChat);
+     });
+   }
+ 

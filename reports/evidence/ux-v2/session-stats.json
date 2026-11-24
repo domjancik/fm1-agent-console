@@ -1,0 +1,478 @@
+{
+  "generatedAt": "2026-11-18T06:46:45.520Z",
+  "source": "TraycerAgentAdapter read-only (connect, listTasks, listProjects, listSessions, listApprovals, passive feeds); sessionScanLimit 10000",
+  "note": "Anonymised aggregates only: no titles, ids, paths or tokens. lastActivity = max(session createdAt, chat/agent record updatedAt, last turn outcome at).",
+  "totals": {
+    "tasks": 157,
+    "tasksWithSessions": 98,
+    "projects": 14,
+    "projectKinds": {
+      "ws": 14
+    },
+    "sessionsListed": 433,
+    "sessionsIncludingArchived": 677,
+    "archivedSessions": 244,
+    "approvalsPending": 0
+  },
+  "byState": {
+    "idle": 255,
+    "working": 4,
+    "completed_read": 18,
+    "failed": 22,
+    "unknown": 115,
+    "completed_unread": 19
+  },
+  "inferredByState": {
+    "idle": 65
+  },
+  "byRuntime": {
+    "chat": 253,
+    "terminal": 180
+  },
+  "byProvider": {
+    "codex": 137,
+    "claude": 296
+  },
+  "byProviderState": {
+    "codex": {
+      "idle": 103,
+      "completed_read": 11,
+      "failed": 11,
+      "unknown": 3,
+      "completed_unread": 9
+    },
+    "claude": {
+      "working": 4,
+      "idle": 152,
+      "failed": 11,
+      "unknown": 112,
+      "completed_unread": 10,
+      "completed_read": 7
+    }
+  },
+  "ageSinceLastActivity": {
+    ">30d": 214,
+    "4-24h": 44,
+    "7-30d": 102,
+    "1-3d": 48,
+    "<1h": 24,
+    "3-7d": 1
+  },
+  "byStateAge": {
+    "idle": {
+      ">30d": 85,
+      "7-30d": 85,
+      "4-24h": 30,
+      "1-3d": 33,
+      "<1h": 22
+    },
+    "working": {
+      "4-24h": 2,
+      "1-3d": 2
+    },
+    "completed_read": {
+      "7-30d": 5,
+      "4-24h": 2,
+      ">30d": 10,
+      "1-3d": 1
+    },
+    "failed": {
+      "4-24h": 6,
+      "7-30d": 3,
+      "1-3d": 3,
+      "<1h": 2,
+      ">30d": 8
+    },
+    "unknown": {
+      ">30d": 103,
+      "7-30d": 5,
+      "1-3d": 7
+    },
+    "completed_unread": {
+      "4-24h": 4,
+      ">30d": 8,
+      "7-30d": 4,
+      "1-3d": 2,
+      "3-7d": 1
+    }
+  },
+  "perTaskSizes": {
+    "count": 98,
+    "top10": [
+      {
+        "sessions": 69,
+        "attention": 9,
+        "active": 9,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 52,
+        "attention": 8,
+        "active": 10,
+        "newestAgeH": 12
+      },
+      {
+        "sessions": 39,
+        "attention": 2,
+        "active": 2,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 30,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 24,
+        "attention": 3,
+        "active": 5,
+        "newestAgeH": 20
+      },
+      {
+        "sessions": 15,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 567
+      },
+      {
+        "sessions": 14,
+        "attention": 2,
+        "active": 2,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 12,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 22
+      },
+      {
+        "sessions": 10,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 1151
+      },
+      {
+        "sessions": 10,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 20
+      }
+    ],
+    "histogram": {
+      "1": 63,
+      "20+": 5,
+      "10-19": 5,
+      "5-9": 10,
+      "2-4": 15
+    },
+    "tasksWithAttention": 19,
+    "tasksWithActive": 19
+  },
+  "perProjectSizes": {
+    "count": 10,
+    "all": [
+      {
+        "sessions": 333,
+        "attention": 29,
+        "active": 33,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 54,
+        "attention": 2,
+        "active": 2,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 16,
+        "attention": 2,
+        "active": 2,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 15,
+        "attention": 3,
+        "active": 3,
+        "newestAgeH": 0
+      },
+      {
+        "sessions": 7,
+        "attention": 4,
+        "active": 4,
+        "newestAgeH": 10
+      },
+      {
+        "sessions": 4,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 1844
+      },
+      {
+        "sessions": 1,
+        "attention": 1,
+        "active": 1,
+        "newestAgeH": 1192
+      },
+      {
+        "sessions": 1,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 1246
+      },
+      {
+        "sessions": 1,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 1820
+      },
+      {
+        "sessions": 1,
+        "attention": 0,
+        "active": 0,
+        "newestAgeH": 1989
+      }
+    ]
+  },
+  "completedUnreadReadInTraycer": {
+    "false": 19
+  },
+  "viewSizes": {
+    "attention": 41,
+    "attention_unread_or_blocking": 41,
+    "active": 45,
+    "active_plus_recent24h": 99,
+    "default_visible_24h": 99,
+    "default_visible_8h": 67,
+    "completed_unread_older_24h": 15,
+    "completed_unread_older_72h": 13,
+    "failed_older_72h": 11,
+    "all": 433
+  },
+  "tiers": {
+    "note": "T0 approval, T1 question, T2 failed<=72h, T3 done-unread<=72h, T4 working, T5 idle/read/unknown within window, T6 failed/done-unread >72h, T7 rest",
+    "scan25": {
+      "recent8h": {
+        "tasks": {
+          "active": 8,
+          "recent": 12,
+          "all": 25
+        },
+        "glo": 33,
+        "byTier": [
+          0,
+          0,
+          11,
+          5,
+          4,
+          22,
+          17,
+          220
+        ],
+        "todo": 16,
+        "live": 20,
+        "recent": 42,
+        "all": 279,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 2,
+          "all": 11
+        }
+      },
+      "recent24h": {
+        "tasks": {
+          "active": 8,
+          "recent": 19,
+          "all": 25
+        },
+        "glo": 33,
+        "byTier": [
+          0,
+          0,
+          11,
+          5,
+          4,
+          53,
+          17,
+          189
+        ],
+        "todo": 16,
+        "live": 20,
+        "recent": 73,
+        "all": 279,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 3,
+          "all": 11
+        }
+      },
+      "recent72h": {
+        "tasks": {
+          "active": 8,
+          "recent": 22,
+          "all": 25
+        },
+        "glo": 33,
+        "byTier": [
+          0,
+          0,
+          11,
+          5,
+          4,
+          81,
+          17,
+          161
+        ],
+        "todo": 16,
+        "live": 20,
+        "recent": 101,
+        "all": 279,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 4,
+          "all": 11
+        }
+      }
+    },
+    "all": {
+      "recent8h": {
+        "tasks": {
+          "active": 9,
+          "recent": 13,
+          "all": 98
+        },
+        "glo": 41,
+        "byTier": [
+          0,
+          0,
+          11,
+          6,
+          4,
+          22,
+          24,
+          366
+        ],
+        "todo": 17,
+        "live": 21,
+        "recent": 43,
+        "all": 433,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 2,
+          "all": 17
+        }
+      },
+      "recent24h": {
+        "tasks": {
+          "active": 9,
+          "recent": 21,
+          "all": 98
+        },
+        "glo": 41,
+        "byTier": [
+          0,
+          0,
+          11,
+          6,
+          4,
+          54,
+          24,
+          334
+        ],
+        "todo": 17,
+        "live": 21,
+        "recent": 75,
+        "all": 433,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 3,
+          "all": 17
+        }
+      },
+      "recent72h": {
+        "tasks": {
+          "active": 9,
+          "recent": 26,
+          "all": 98
+        },
+        "glo": 41,
+        "byTier": [
+          0,
+          0,
+          11,
+          6,
+          4,
+          95,
+          24,
+          293
+        ],
+        "todo": 17,
+        "live": 21,
+        "recent": 116,
+        "all": 433,
+        "pages": {
+          "todo": 1,
+          "live": 1,
+          "recent": 5,
+          "all": 17
+        }
+      }
+    }
+  },
+  "byRuntimeState": {
+    "chat": {
+      "idle": 190,
+      "working": 4,
+      "completed_read": 18,
+      "failed": 22,
+      "completed_unread": 19
+    },
+    "terminal": {
+      "unknown": 115,
+      "idle": 65
+    }
+  },
+  "companionDefaultScan": {
+    "note": "sessions in the 25 most recently updated tasks with sessions (adapter default sessionScanLimit 25)",
+    "sessions": 279,
+    "byState": {
+      "idle": 194,
+      "working": 4,
+      "completed_read": 12,
+      "failed": 20,
+      "unknown": 36,
+      "completed_unread": 13
+    }
+  },
+  "titles": {
+    "source": "scripts/title-stats.ts (read-only, the companion's default scan: 279 sessions); numbers only",
+    "sessions": 279,
+    "titleLen": {
+      "min": 13,
+      "p25": 23,
+      "median": 28,
+      "p75": 33,
+      "p90": 40,
+      "max": 55
+    },
+    "over12": 279,
+    "over20": 238,
+    "fallbackTitles": 3,
+    "distinctLabels": {
+      "clip12": 233,
+      "wordShort12": 203,
+      "fullTitle": 275
+    },
+    "sessionsSharingLabel": {
+      "clip12": 68,
+      "wordShort12": 105,
+      "fullTitle": 7
+    }
+  }
+}
